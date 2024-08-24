@@ -30,12 +30,13 @@ export const authStore = defineStore('auth', {
                     url: 'http://127.0.0.1:8000/api/login',
                     data: JSON.stringify(params)
                 }).then((response) => {
+                    
                     this.isAuthenticate = true
-                    this.token = response
+                    this.token = response.data.token
 
-                    localStorage.setItem('token_login', response)
+                    localStorage.setItem('token_login', response.data.token)
 
-                    if(response.data.status){
+                    if(response.status == 200){
                         resolve ({
                             status: true,
                             data: response.data
@@ -49,6 +50,12 @@ export const authStore = defineStore('auth', {
                 }).catch((err) => {
                     reject(err)
                 })
+            })
+        },
+
+        register(payload){
+            return new Promise((resolve, reject) => {
+                
             })
         }
     }
